@@ -1,15 +1,13 @@
 "use client";
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import styles from './page.module.css';
-import { UploadCloud, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 export default function PreOnboardingForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     companyName: '',
@@ -294,39 +292,6 @@ export default function PreOnboardingForm() {
       {/* 4. Final Details */}
       <div className={styles.section}>
         <h3 className={styles.sectionTitle}>Final Details</h3>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Brand Assets & Guidelines</label>
-          <div className={styles.uploadBox} onClick={() => fileInputRef.current?.click()}>
-            <input
-              type="file"
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-              onChange={(e) => {
-                if (e.target.files && e.target.files.length > 0) {
-                  setSelectedFile(e.target.files[0]);
-                }
-              }}
-              accept=".zip,.pdf,.png,.jpg,.jpeg"
-            />
-            {selectedFile ? (
-              <>
-                <CheckCircle2 className={styles.uploadIcon} style={{ color: 'var(--primary-color)' }} />
-                <p className={styles.uploadText}>
-                  Selected: <span className={styles.uploadLink}>{selectedFile.name}</span>
-                </p>
-              </>
-            ) : (
-              <>
-                <UploadCloud className={styles.uploadIcon} />
-                <p className={styles.uploadText}>
-                  <span className={styles.uploadLink}>Upload a file</span> or click to browse<br />
-                  <span style={{ fontSize: '0.8rem' }}>Logo, brand guide, etc. (ZIP, PDF, PNG, JPG up to 10MB)</span>
-                </p>
-              </>
-            )}
-          </div>
-        </div>
 
         <div className={styles.formGroup} style={{ marginTop: '1.25rem' }}>
           <label className={styles.label}>How did you hear about us?</label>
